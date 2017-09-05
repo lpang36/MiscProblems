@@ -1,5 +1,6 @@
 import java.lang.Integer;
 
+//cci 3.2
 public class MinStack {
 	Node first;
 	int size;

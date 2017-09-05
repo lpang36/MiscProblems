@@ -70,6 +70,7 @@ public class Stack {
 			s.push(aux.pop());
 		}
 	}
+	//cci 3.6
 	public static Stack sort(Stack s) {
 		Stack out = new Stack();
 		while(!s.isEmpty()) {

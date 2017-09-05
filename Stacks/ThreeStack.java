@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//cci 3.1
 public class ThreeStack {
 	ArrayList<Integer> arr = new ArrayList<Integer>();
 	int[] sizes = new int[3];

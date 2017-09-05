@@ -1,3 +1,4 @@
+//cci 3.3
 public class SetOfStacks {
 	Stack first;
 	int size;
@@ -22,6 +23,7 @@ public class SetOfStacks {
 		}
 		first.pop();
 	}
+	//cci 3.4
 	public void popFrom (int x) { //0 indexed from most recent stack
 		Stack current = first;
 		for (int i = 0; i<x-1; i++) {
