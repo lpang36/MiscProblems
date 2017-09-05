@@ -43,6 +43,7 @@ public class SinglyLinkedList {
 		}
 		size--;
 	}
+	//cci 2.1 
 	public void removeDuplicatesHashTable() {
 		Hashtable table = new Hashtable();
 		Node current = first;
@@ -54,6 +55,7 @@ public class SinglyLinkedList {
 			current = current.next();
 		}
 	}
+	//cci 2.1 followup
 	public void removeDuplicatesNoBuffer() {
 		Node current1 = first;
 		for (int i = 0; i<size-1; i++) {
@@ -85,6 +87,7 @@ public class SinglyLinkedList {
 		}
 		return current;
 	}
+	//cci 2.3
 	public char getFromEnd(int n) { //last element indexed as 0
 		Node current = first;
 		for (int i = 0; i<size-2-n; i++) {
@@ -113,6 +116,7 @@ public class SinglyLinkedList {
 		char[] list = Integer.toString(x).toCharArray();
 		return new SinglyLinkedList(list);
 	}
+	//cci 2.4
 	public SinglyLinkedList add(SinglyLinkedList a) {
 		int x = a.listToInt();
 		int y = this.listToInt();
@@ -125,6 +129,7 @@ public class SinglyLinkedList {
 		n2.add(n1);
 		return ind1;
 	}
+	//cci 2.5
 	public Node findBeginning() { //don't use size. that's cheating
 		Hashtable table = new Hashtable();
 		Node current = first;
