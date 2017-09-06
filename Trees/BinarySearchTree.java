@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.lang.Math;
 
 public class BinarySearchTree {
@@ -6,36 +7,41 @@ public class BinarySearchTree {
 	int size;
 	//cci 4.3
 	public BinarySearchTree (int[] x) {
-		Node[] nodes = new Node[x];
+		Node[] nodes = new Node[x.length];
 		size = x.length;
 		for (int i = 0; i<x.length; i++) {
 			Node n = new Node(x[i]);
 			nodes[i] = n;
-			if (i%2==0)
-				nodes[i/2].left = n;
-			else
-				nodes[i/2].right = n;
-			n.parent = nodes[i/2];
+			if (i==0) {}
+			else {
+				if (i%2==0)
+					nodes[(i+1)/2-1].left = n;
+				else
+					nodes[(i+1)/2-1].right = n;
+				n.parent = nodes[(i+1)/2-1];
+			}
 		}
 		root = nodes[0];
 	}
 	//cci 4.4
-	public LinkedList<Node>[] makeLists() {
-		LinkedList<Node>[] listOfLists = new LinkedList<Node>[(int)(Math.log(size)/Math.log(2.0))+1];
+	public ArrayList<LinkedList<Node>> makeLists() {
+		ArrayList<LinkedList<Node>> listOfLists = new ArrayList<LinkedList<Node>>();
 		Node[] current = new Node[] {root};
-		for (int i = 0; i<listOfLists.length; i++) {
+		for (int i = 0; i<(int)(Math.log(size)/Math.log(2.0))+1; i++) {
 			LinkedList<Node> list = new LinkedList<Node>();
 			int count = 0;
-			newCurrent = new Node[current.length*2];
-			for (int i = 0; i<current.length; i++) {
-				list.add(current[i]);
-				newCurrent[count] = current[i].left;
-				count++;
-				newCurrent[count] = current[i].right;
-				count++;
+			Node[] newCurrent = new Node[current.length*2];
+			for (int j = 0; j<current.length; j++) {
+				if (current[j]!=null) {
+					list.add(current[j]);
+					newCurrent[count] = current[j].left;
+					count++;
+					newCurrent[count] = current[j].right;
+					count++;
+				}
 			}
 			current = newCurrent;
-			listOfLists[i] = list;
+			listOfLists.add(list);
 		}
 		return listOfLists;
 	}
@@ -57,11 +63,11 @@ public class BinarySearchTree {
 		if (existsInSubtree(a,b))
 			return a;
 		Node p = a;
-		while(p!=null) {
+		while(p.parent!=null) {
+			Node pParent = p.parent;
 			if (p==b)
 				return p;
 			else {
-				pParent = p.parent;
 				boolean leftFlag = pParent.left==p;
 				if (leftFlag&&existsInSubtree(pParent.right,b))
 					return pParent;
@@ -72,11 +78,10 @@ public class BinarySearchTree {
 		}
 		return null;
 	}
-	//cci 4.7
 	public boolean existsInSubtree(Node a, Node b) {
 		if (a!=null&&a==b)
 			return true;
-		boolean left, right;
+		boolean left = false, right = false;
 		if (a.left!=null)
 			left = existsInSubtree(a.left,b);
 		if (a.right!=null)
@@ -84,21 +89,34 @@ public class BinarySearchTree {
 		return left||right;
 	}
 	public String toString() {
-		String s;
+		String s = "";
 		Node[] current = new Node[] {root};
 		for (int i = 0; i<(int)(Math.log(size)/Math.log(2.0))+1; i++) {
 			int count = 0;
-			newCurrent = new Node[current.length*2];
-			for (int i = 0; i<current.length; i++) {
-				s+=current[i].data+' ';
-				newCurrent[count] = current[i].left;
-				count++;
-				newCurrent[count] = current[i].right;
-				count++;
+			Node[] newCurrent = new Node[current.length*2];
+			for (int j = 0; j<current.length; j++) {
+				if (current[j]!=null) {
+					s+=current[j].data+" ";
+					newCurrent[count] = current[j].left;
+					count++;
+					newCurrent[count] = current[j].right;
+					count++;
+				}
 			}
 			current = newCurrent;
 		}
 		return s;
+	}
+	public void test() {
+		BinarySearchTree bst = new BinarySearchTree(new int[] {1,2,3,4,5,6,7,8,9,10});
+		System.out.println(bst);
+		ArrayList<LinkedList<Node>> lists = bst.makeLists();
+		for (int i = 0; i<lists.size(); i++) {
+			System.out.println(lists.get(i));
+		}
+		Node a = bst.root.right.right.left;
+		Node b = bst.root.left.left;
+		System.out.println(bst.findCommonAncestor(a,b).data);
 	}
 	private class Node {
 		int data;
@@ -111,6 +129,7 @@ public class BinarySearchTree {
 		}
 	}
 	public static void main(String[] args) {
-		BinarySearchTree obj = new BinarySearchTree();
+		BinarySearchTree obj = new BinarySearchTree(new int[] {1,2,3,4,5,6,7,8,9,10});
+		obj.test();
 	}
 }
