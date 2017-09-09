@@ -1,5 +1,3 @@
-//hard coding all these array dimensions lmao
-
 #include<iostream>
 using namespace std;
 
