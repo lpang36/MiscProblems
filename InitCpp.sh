@@ -5,7 +5,7 @@ if [ "$#" -eq 2 ]; then
 using namespace std;
 int main() {
 }" >> $2.java
-    notepadqq $2.java
+    notepadqq $2.cpp
     cd ..
 fi
 if [ "$#" -eq 1 ]; then
@@ -14,5 +14,5 @@ if [ "$#" -eq 1 ]; then
 using namespace std;
 int main() {
 }" >> $1.java
-    notepadqq $1.java
+    notepadqq $1.cpp
 fi
